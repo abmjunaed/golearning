@@ -78,7 +78,61 @@ func main() {
 	wc.Test(WordCount)
 }
 
-// fibonacci exercise with function closure
+// sol 1: fibonacci exercise with function clousure (CLEANER code)
+// https://tour.golang.org/moretypes/26
+func fibonacci() func() int {
+	i := 0
+	f1 := 0
+	f2 := 1
+	fmt.Println("Holding fn start ", f1, f2, i)
+	var res int
+	return func() int{
+		if i == 0 || i == 1 {
+			i++
+			return i-1
+		}
+		/*
+		//to simplify a bit:
+		if i == 0 {
+			i++
+			return 0
+		}
+		if i == 1 {
+			i++
+			return 1
+		}
+		*/
+		res = f1 + f2 // Note 1: f1, f2 is defined and initialized outside of this return func, in the holding func, but we can access it from here
+		// Note 2: VVI: holding function's body is not called again and again, that's why f1 and f2 are not reinitialized. see the output to be sure that the
+		// holding function's body was called only once
+		f1, f2 = f2, res
+		return res	
+		
+	}
+}
+
+func main() {
+	f := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Println(f())
+	}
+}
+=========================
+output:
+Holding fn start  0 1 0
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+========================
+
+// sol 2: fibonacci exercise with function closure (UGLY CODE)
 // https://tour.golang.org/moretypes/26
 package main
 
