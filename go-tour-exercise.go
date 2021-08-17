@@ -133,6 +133,13 @@ Holding fn start  0 1 0
 ========================
 
 // sol 2: fibonacci exercise with function closure (UGLY CODE)
+// closure:
+/*
+A closure is a function value that references variables from outside its body. 
+The function may access and assign to the referenced variables; in this sense the function is "bound" to the variables.
+The fibonacci() function returns a closure.
+Each closure is bound to its own i, f1, f2 and res variables
+*/
 // https://tour.golang.org/moretypes/26
 package main
 
