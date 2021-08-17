@@ -77,3 +77,39 @@ func WordCount(s string) map[string]int {
 func main() {
 	wc.Test(WordCount)
 }
+
+// fibonacci exercise with function closure
+// https://tour.golang.org/moretypes/26
+package main
+
+import "fmt"
+
+// fibonacci is a function that returns
+// a function that returns an int.
+func fibonacci() func() int {
+	i:=0
+	f1:=0
+	f2:=0
+	var res int
+	return func() int{
+		if i==0 {
+			i++
+			return 0
+		}else if(i==1){
+			i++
+			f1=1
+			f2=0
+			return 1
+		}
+		res=f1+f2
+		f1,f2=f2,res
+		return res
+	}
+}
+
+func main() {
+	f := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Println(f())
+	}
+}
